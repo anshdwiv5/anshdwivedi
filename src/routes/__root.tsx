@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Ansh Dwivedi" },
+      { name: "description", content: "A modern, dark-mode personal website showcasing Ansh Dwivedi's projects and journey." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Ansh Dwivedi" },
+      { property: "og:description", content: "A modern, dark-mode personal website showcasing Ansh Dwivedi's projects and journey." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Ansh Dwivedi" },
+      { name: "twitter:description", content: "A modern, dark-mode personal website showcasing Ansh Dwivedi's projects and journey." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2e70e0ce-afcd-4bd5-b22f-c144e9cb9cf3/id-preview-ed9b00a3--c1a3aac4-85dc-4c22-934a-e8374df95bfd.lovable.app-1780223427121.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2e70e0ce-afcd-4bd5-b22f-c144e9cb9cf3/id-preview-ed9b00a3--c1a3aac4-85dc-4c22-934a-e8374df95bfd.lovable.app-1780223427121.png" },
     ],
     links: [
       {
