@@ -1,48 +1,62 @@
 import { useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 
+import { useReveal } from "@/hooks/use-reveal";
 import { requestResume } from "@/lib/resume.functions";
 
-const LINKEDIN_URL = "https://www.linkedin.com/in/anshdwivedi/"; // edit me
-const EMAIL = "anshdwiv5@gmail.com"; // edit me
+const LINKEDIN_URL = "https://www.linkedin.com/in/anshdwivedi/";
+const EMAIL = "anshdwiv5@gmail.com";
 
-export function Contact() {
+export const Route = createFileRoute("/contact")({
+  head: () => ({
+    meta: [
+      { title: "contact — ansh dwivedi" },
+      { name: "description", content: "get in touch with ansh — email, linkedin, or request a résumé." },
+      { property: "og:title", content: "contact — ansh dwivedi" },
+      { property: "og:description", content: "say hi." },
+    ],
+  }),
+  component: ContactPage,
+});
+
+function ContactPage() {
+  useReveal();
   const [open, setOpen] = useState(false);
 
   return (
-    <section id="contact" className="relative py-32 md:py-40 bg-[color:var(--eclipse-surface)]/30">
-      <div className="container mx-auto px-6 md:px-10 max-w-3xl text-center">
-        <p className="reveal font-mono text-xs uppercase tracking-[0.25em] text-[var(--eclipse-accent)] mb-6">
-          04 — contact
+    <section className="relative py-24 md:py-32">
+      <div className="container mx-auto px-6 md:px-10 max-w-2xl text-center">
+        <p className="reveal font-mono text-xs uppercase tracking-[0.25em] text-[var(--eclipse-accent)] mb-6 lowercase">
+          05 — contact
         </p>
-        <h2 className="reveal text-4xl md:text-6xl font-semibold tracking-tight">
-          Say <span className="text-[var(--eclipse-accent)]">hi</span>.
-        </h2>
-        <p className="reveal mt-6 text-lg text-[color:var(--eclipse-foreground)]/70 leading-relaxed">
-          For collaborations, questions, or if you just want to swap notes on
-          something interesting.
+        <h1 className="reveal text-4xl md:text-6xl font-semibold tracking-tight lowercase">
+          say <span className="text-[var(--eclipse-accent)]">hi</span>.
+        </h1>
+        <p className="reveal mt-6 text-base md:text-lg text-[color:var(--eclipse-foreground)]/70 leading-relaxed lowercase">
+          for collaborations, questions, or if you just want to swap notes on something interesting.
         </p>
 
         <div className="reveal mt-12 flex flex-wrap gap-3 justify-center">
           <a
             href={`mailto:${EMAIL}`}
-            className="px-6 py-3 rounded-full bg-[var(--eclipse-accent)] text-[var(--eclipse-deep)] font-medium text-sm transition-all duration-300 hover:shadow-[var(--shadow-eclipse)] hover:-translate-y-0.5"
+            className="px-6 py-3 rounded-full bg-[var(--eclipse-accent)] text-[var(--eclipse-deep)] font-medium text-sm transition-all duration-300 hover:shadow-[var(--shadow-eclipse)] hover:-translate-y-0.5 lowercase"
           >
-            Email
+            email
           </a>
           <a
             href={LINKEDIN_URL}
             target="_blank"
             rel="noreferrer"
-            className="px-6 py-3 rounded-full border border-[color:var(--eclipse-muted)]/60 text-[var(--eclipse-foreground)] font-medium text-sm transition-all duration-300 hover:border-[var(--eclipse-accent)] hover:text-[var(--eclipse-accent)] hover:-translate-y-0.5"
+            className="px-6 py-3 rounded-full border border-[color:var(--eclipse-muted)]/60 text-[var(--eclipse-foreground)] font-medium text-sm transition-all duration-300 hover:border-[var(--eclipse-accent)] hover:text-[var(--eclipse-accent)] hover:-translate-y-0.5 lowercase"
           >
-            LinkedIn
+            linkedin
           </a>
           <button
             onClick={() => setOpen(true)}
-            className="px-6 py-3 rounded-full border border-[color:var(--eclipse-muted)]/60 text-[var(--eclipse-foreground)] font-medium text-sm transition-all duration-300 hover:border-[var(--eclipse-accent)] hover:text-[var(--eclipse-accent)] hover:-translate-y-0.5"
+            className="px-6 py-3 rounded-full border border-[color:var(--eclipse-muted)]/60 text-[var(--eclipse-foreground)] font-medium text-sm transition-all duration-300 hover:border-[var(--eclipse-accent)] hover:text-[var(--eclipse-accent)] hover:-translate-y-0.5 lowercase"
           >
-            Request résumé
+            request résumé
           </button>
         </div>
       </div>
@@ -65,7 +79,7 @@ function ResumeDialog({ open, onClose }: { open: boolean; onClose: () => void })
     setError(null);
     const trimmed = email.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-      setError("That doesn't look like a valid email.");
+      setError("that doesn't look like a valid email.");
       return;
     }
     setState("sending");
@@ -75,7 +89,7 @@ function ResumeDialog({ open, onClose }: { open: boolean; onClose: () => void })
     } catch (err) {
       console.error(err);
       setState("error");
-      setError("Something broke on our end. Try again in a moment.");
+      setError("something broke on our end. try again in a moment.");
     }
   };
 
@@ -96,7 +110,7 @@ function ResumeDialog({ open, onClose }: { open: boolean; onClose: () => void })
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-md rounded-2xl border p-8 animate-in fade-in zoom-in-95 duration-300"
+        className="relative w-full max-w-md rounded-2xl border p-8"
         style={{
           borderColor: "color-mix(in oklab, var(--eclipse-accent) 30%, transparent)",
           background: "var(--eclipse-surface)",
@@ -106,17 +120,17 @@ function ResumeDialog({ open, onClose }: { open: boolean; onClose: () => void })
         <button
           onClick={close}
           className="absolute top-4 right-4 text-[color:var(--eclipse-muted)] hover:text-[var(--eclipse-foreground)] text-xl"
-          aria-label="Close"
+          aria-label="close"
         >
           ×
         </button>
 
         {state === "done" ? (
-          <div className="text-center py-4">
+          <div className="text-center py-4 lowercase">
             <div className="text-3xl mb-4">✦</div>
-            <h3 className="text-xl font-semibold">Thanks —</h3>
+            <h3 className="text-xl font-semibold">thanks —</h3>
             <p className="mt-3 text-[color:var(--eclipse-foreground)]/75 text-sm leading-relaxed">
-              Ansh will get your résumé over to you shortly.
+              ansh will get your résumé over to you shortly.
             </p>
             <button
               onClick={close}
@@ -130,11 +144,11 @@ function ResumeDialog({ open, onClose }: { open: boolean; onClose: () => void })
             <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[var(--eclipse-accent)] mb-3">
               résumé request
             </p>
-            <h3 className="text-2xl font-semibold tracking-tight">
-              Drop your email.
+            <h3 className="text-2xl font-semibold tracking-tight lowercase">
+              drop your email.
             </h3>
-            <p className="mt-2 text-sm text-[color:var(--eclipse-foreground)]/65">
-              I'll send my résumé over.
+            <p className="mt-2 text-sm text-[color:var(--eclipse-foreground)]/65 lowercase">
+              i'll send my résumé over.
             </p>
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">
               <input
@@ -150,15 +164,13 @@ function ResumeDialog({ open, onClose }: { open: boolean; onClose: () => void })
                   color: "var(--eclipse-foreground)",
                 }}
               />
-              {error && (
-                <p className="text-xs text-red-300/90 font-mono">{error}</p>
-              )}
+              {error && <p className="text-xs text-red-300/90 font-mono lowercase">{error}</p>}
               <button
                 type="submit"
                 disabled={state === "sending"}
-                className="w-full px-6 py-3 rounded-lg bg-[var(--eclipse-accent)] text-[var(--eclipse-deep)] font-medium text-sm transition-all duration-300 hover:shadow-[var(--shadow-eclipse)] disabled:opacity-60"
+                className="w-full px-6 py-3 rounded-lg bg-[var(--eclipse-accent)] text-[var(--eclipse-deep)] font-medium text-sm transition-all duration-300 hover:shadow-[var(--shadow-eclipse)] disabled:opacity-60 lowercase"
               >
-                {state === "sending" ? "Sending…" : "Request résumé"}
+                {state === "sending" ? "sending…" : "request résumé"}
               </button>
             </form>
           </>

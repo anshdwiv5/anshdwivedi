@@ -236,5 +236,4 @@
   .animate-orbit-slow { animation: orbit 60s linear infinite; }
   .animate-orbit-rev { animation: orbit 90s linear infinite reverse; }
   .animate-pulse-glow { animation: pulse-glow 8s ease-in-out infinite; }
-  }
 }
