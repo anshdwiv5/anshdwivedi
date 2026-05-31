@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useReveal } from "@/hooks/use-reveal";
+import { Mountain, Footprints, Mic2, type LucideIcon } from "lucide-react";
 
 export const Route = createFileRoute("/quests")({
   head: () => ({
@@ -16,15 +17,14 @@ export const Route = createFileRoute("/quests")({
 type Quest = {
   title: string;
   description: string;
-  tag: string;
   year?: string;
-  emoji?: string;
+  icon: LucideIcon;
 };
 
 const QUESTS: Quest[] = [
-  { title: "horse riding", description: "rode horses as a kid.", tag: "as a kid", emoji: "🐎" },
-  { title: "full marathon", description: "training for / running a full marathon this year.", tag: "this year", year: "2026", emoji: "🏃" },
-  { title: "standup comedy", description: "tried a standup set.", tag: "one-off", emoji: "🎤" },
+  { title: "horse riding", description: "rode horses as a kid.", icon: Mountain },
+  { title: "full marathon", description: "training for / running a full marathon this year.", year: "2026", icon: Footprints },
+  { title: "standup comedy", description: "tried a standup set.", icon: Mic2 },
 ];
 
 function QuestsPage() {
@@ -32,9 +32,6 @@ function QuestsPage() {
   return (
     <section className="relative py-24 md:py-32">
       <div className="container mx-auto px-6 md:px-10 max-w-6xl">
-        <p className="reveal font-mono text-xs uppercase tracking-[0.25em] text-[var(--eclipse-accent)] mb-6 lowercase">
-          04 — side quests
-        </p>
         <h1 className="reveal text-4xl md:text-6xl font-semibold tracking-tight lowercase">
           things i've <span className="text-[var(--eclipse-accent)]">tried</span>.
         </h1>
@@ -43,7 +40,9 @@ function QuestsPage() {
         </p>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {QUESTS.map((q) => (
+          {QUESTS.map((q) => {
+            const Icon = q.icon;
+            return (
             <article
               key={q.title}
               className="reveal group relative rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 cursor-default"
@@ -52,17 +51,22 @@ function QuestsPage() {
                 background: "color-mix(in oklab, var(--eclipse-surface) 35%, transparent)",
               }}
             >
-              <div className="flex items-start justify-between mb-5">
-                <div className="text-3xl">{q.emoji}</div>
-                <span
-                  className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full"
+              <div className="mb-6">
+                <div
+                  className="relative inline-flex items-center justify-center size-14 rounded-2xl border transition-all duration-300 group-hover:scale-105"
                   style={{
-                    color: "var(--eclipse-accent)",
-                    background: "color-mix(in oklab, var(--eclipse-accent) 12%, transparent)",
+                    borderColor: "color-mix(in oklab, var(--eclipse-accent) 35%, transparent)",
+                    background:
+                      "linear-gradient(135deg, color-mix(in oklab, var(--eclipse-accent) 18%, transparent), color-mix(in oklab, var(--eclipse-surface) 60%, transparent))",
+                    boxShadow:
+                      "0 0 24px -6px color-mix(in oklab, var(--eclipse-accent) 40%, transparent)",
                   }}
                 >
-                  {q.tag}
-                </span>
+                  <Icon
+                    className="size-6 text-[var(--eclipse-accent)] group-hover:text-[var(--eclipse-foreground)] transition-colors"
+                    strokeWidth={1.6}
+                  />
+                </div>
               </div>
               <h3 className="text-xl font-semibold tracking-tight group-hover:text-[var(--eclipse-accent)] transition-colors lowercase">
                 {q.title}
@@ -76,7 +80,8 @@ function QuestsPage() {
                 </p>
               )}
             </article>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
