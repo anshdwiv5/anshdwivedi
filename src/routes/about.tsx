@@ -18,9 +18,6 @@ function AboutPage() {
   return (
     <section className="relative py-24 md:py-32">
       <div className="container mx-auto px-6 md:px-10 max-w-3xl">
-        <p className="reveal font-mono text-xs uppercase tracking-[0.25em] text-[var(--eclipse-accent)] mb-8 lowercase">
-          01 — about
-        </p>
         <h1 className="reveal text-4xl md:text-6xl font-semibold tracking-tight mb-12 lowercase">
           a bit about me<span className="text-[var(--eclipse-accent)]">.</span>
         </h1>
@@ -42,7 +39,7 @@ function AboutPage() {
 
         <div className="reveal mt-14 inline-flex items-center gap-3 font-mono text-sm text-[color:var(--eclipse-muted)] lowercase">
           <span className="size-2 rounded-full bg-[var(--eclipse-accent)] animate-pulse-glow" />
-          currently: based in bengaluru, building tsundoku
+          currently: based in bengaluru
         </div>
       </div>
     </section>
