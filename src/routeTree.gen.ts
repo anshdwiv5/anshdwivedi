@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkRouteImport } from './routes/work'
+import { Route as QuestsRouteImport } from './routes/quests'
 import { Route as BuildingRouteImport } from './routes/building'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -17,6 +18,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const WorkRoute = WorkRouteImport.update({
   id: '/work',
   path: '/work',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuestsRoute = QuestsRouteImport.update({
+  id: '/quests',
+  path: '/quests',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BuildingRoute = BuildingRouteImport.update({
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/building': typeof BuildingRoute
+  '/quests': typeof QuestsRoute
   '/work': typeof WorkRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/building': typeof BuildingRoute
+  '/quests': typeof QuestsRoute
   '/work': typeof WorkRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/building': typeof BuildingRoute
+  '/quests': typeof QuestsRoute
   '/work': typeof WorkRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/building' | '/work'
+  fullPaths: '/' | '/about' | '/building' | '/quests' | '/work'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/building' | '/work'
-  id: '__root__' | '/' | '/about' | '/building' | '/work'
+  to: '/' | '/about' | '/building' | '/quests' | '/work'
+  id: '__root__' | '/' | '/about' | '/building' | '/quests' | '/work'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   BuildingRoute: typeof BuildingRoute
+  QuestsRoute: typeof QuestsRoute
   WorkRoute: typeof WorkRoute
 }
 
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/work'
       fullPath: '/work'
       preLoaderRoute: typeof WorkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quests': {
+      id: '/quests'
+      path: '/quests'
+      fullPath: '/quests'
+      preLoaderRoute: typeof QuestsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/building': {
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BuildingRoute: BuildingRoute,
+  QuestsRoute: QuestsRoute,
   WorkRoute: WorkRoute,
 }
 export const routeTree = rootRouteImport
