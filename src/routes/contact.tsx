@@ -27,9 +27,6 @@ function ContactPage() {
   return (
     <section className="relative py-24 md:py-32">
       <div className="container mx-auto px-6 md:px-10 max-w-2xl text-center">
-        <p className="reveal font-mono text-xs uppercase tracking-[0.25em] text-[var(--eclipse-accent)] mb-6 lowercase">
-          05 — contact
-        </p>
         <h1 className="reveal text-4xl md:text-6xl font-semibold tracking-tight lowercase">
           say <span className="text-[var(--eclipse-accent)]">hi</span>.
         </h1>

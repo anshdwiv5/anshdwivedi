@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { Eclipse } from "@/components/site/eclipse";
+import { HeroBackground } from "@/components/site/hero-background";
 import { useReveal } from "@/hooks/use-reveal";
 
 export const Route = createFileRoute("/")({
@@ -23,13 +23,11 @@ function Index() {
   return (
     <section
       className="relative min-h-[calc(100vh-4rem-5rem)] flex items-center overflow-hidden"
-      style={{ background: "var(--gradient-hero)" }}
+      style={{ background: "var(--eclipse-deep)" }}
     >
+      <HeroBackground />
       <div className="container mx-auto px-6 md:px-10 py-16 md:py-24 grid md:grid-cols-[1.3fr_1fr] gap-12 md:gap-16 items-center relative z-10">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--eclipse-accent)] mb-6 reveal lowercase">
-            ✦ portfolio / 2026
-          </p>
           <h1 className="reveal text-[clamp(2.75rem,8vw,6.5rem)] leading-[0.95] font-semibold tracking-tight lowercase">
             ansh
             <br />
@@ -42,18 +40,32 @@ function Index() {
           </p>
         </div>
 
-        <div className="relative aspect-square max-w-[420px] mx-auto w-full reveal">
-          <Eclipse className="absolute inset-0" />
+        <div className="relative aspect-square max-w-[440px] mx-auto w-full reveal">
+          {/* soft halo behind a transparent-bg portrait */}
           <div
-            className="absolute inset-[18%] rounded-full overflow-hidden border-2 z-10"
+            className="absolute inset-[5%] rounded-full animate-pulse-glow"
             style={{
-              borderColor: "color-mix(in oklab, var(--eclipse-accent) 50%, transparent)",
-              boxShadow: "var(--shadow-eclipse)",
-              background: "linear-gradient(135deg, var(--eclipse-surface), var(--eclipse-deep))",
+              background:
+                "radial-gradient(circle at 50% 55%, color-mix(in oklab, var(--eclipse-accent) 55%, transparent) 0%, color-mix(in oklab, var(--eclipse-accent) 18%, transparent) 35%, transparent 70%)",
+              filter: "blur(30px)",
             }}
-          >
-            <div className="w-full h-full flex items-center justify-center font-mono text-xs text-[color:var(--eclipse-muted)] lowercase">
-              your photo
+          />
+          {/* faint orbital ring */}
+          <div
+            className="absolute inset-[2%] rounded-full border animate-orbit-slow"
+            style={{
+              borderColor: "color-mix(in oklab, var(--eclipse-accent) 22%, transparent)",
+              borderStyle: "dashed",
+            }}
+          />
+          {/* photo slot — drop a transparent PNG here (no hard frame) */}
+          <div className="relative w-full h-full flex items-end justify-center">
+            {/*
+              replace the <div> below with:
+              <img src="/your-photo.png" alt="ansh dwivedi" className="w-full h-full object-contain" />
+            */}
+            <div className="w-[78%] h-[88%] flex items-center justify-center font-mono text-xs text-[color:var(--eclipse-muted)] lowercase tracking-widest">
+              drop transparent png here
             </div>
           </div>
         </div>
