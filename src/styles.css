@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -59,29 +60,60 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  /* Blue Eclipse palette — dark mode only.
+   * #0F0E47 background, #272757 surfaces, #505081 muted/borders,
+   * #8686AC accent (periwinkle), #F4F4F8 foreground. */
+  --background: oklch(0.182 0.108 281);
+  --foreground: oklch(0.967 0.005 285);
+  --card: oklch(0.260 0.090 281);
+  --card-foreground: oklch(0.967 0.005 285);
+  --popover: oklch(0.260 0.090 281);
+  --popover-foreground: oklch(0.967 0.005 285);
+  --primary: oklch(0.678 0.063 285);
+  --primary-foreground: oklch(0.182 0.108 281);
+  --secondary: oklch(0.260 0.090 281);
+  --secondary-foreground: oklch(0.967 0.005 285);
+  --muted: oklch(0.260 0.090 281);
+  --muted-foreground: oklch(0.560 0.060 285);
+  --accent: oklch(0.678 0.063 285);
+  --accent-foreground: oklch(0.182 0.108 281);
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --destructive-foreground: oklch(0.967 0.005 285);
+  --border: oklch(0.420 0.075 285 / 35%);
+  --input: oklch(0.260 0.090 281);
+  --ring: oklch(0.678 0.063 285);
+
+  /* Raw brand tokens for gradients / atmospheric effects */
+  --eclipse-deep: #0F0E47;
+  --eclipse-surface: #272757;
+  --eclipse-muted: #505081;
+  --eclipse-accent: #8686AC;
+  --eclipse-foreground: #F4F4F8;
+
+  --gradient-hero: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      color-mix(in oklab, var(--eclipse-accent) 18%, transparent) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 20% 80%,
+      color-mix(in oklab, var(--eclipse-surface) 80%, transparent) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 50% 50% at 90% 30%,
+      color-mix(in oklab, var(--eclipse-accent) 12%, transparent) 0%,
+      transparent 60%
+    );
+
+  --shadow-eclipse: 0 0 60px -10px color-mix(in oklab, var(--eclipse-accent) 40%, transparent);
+
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -140,5 +172,69 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--eclipse-accent) 40%, transparent);
+    color: var(--eclipse-foreground);
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  /* Subtle film grain overlay */
+  .grain::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.8 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .text-accent-glow {
+    text-shadow: 0 0 24px color-mix(in oklab, var(--eclipse-accent) 50%, transparent);
+  }
+
+  /* Eclipse orbital animations */
+  @keyframes orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(1.04); }
+  }
+  .animate-orbit-slow { animation: orbit 60s linear infinite; }
+  .animate-orbit-rev { animation: orbit 90s linear infinite reverse; }
+  .animate-pulse-glow { animation: pulse-glow 8s ease-in-out infinite; }
   }
 }
