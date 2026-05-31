@@ -69,7 +69,7 @@
   /* Blue Eclipse palette — dark mode only.
    * #0F0E47 background, #272757 surfaces, #505081 muted/borders,
    * #8686AC accent (periwinkle), #F4F4F8 foreground. */
-  --background: oklch(0.182 0.108 281);
+  --background: oklch(0.155 0.085 278);
   --foreground: oklch(0.967 0.005 285);
   --card: oklch(0.260 0.090 281);
   --card-foreground: oklch(0.967 0.005 285);
@@ -90,8 +90,8 @@
   --ring: oklch(0.678 0.063 285);
 
   /* Raw brand tokens for gradients / atmospheric effects */
-  --eclipse-deep: #0F0E47;
-  --eclipse-surface: #272757;
+  --eclipse-deep: #0B0A2E;
+  --eclipse-surface: #1E1D49;
   --eclipse-muted: #505081;
   --eclipse-accent: #8686AC;
   --eclipse-foreground: #F4F4F8;
@@ -236,4 +236,26 @@
   .animate-orbit-slow { animation: orbit 60s linear infinite; }
   .animate-orbit-rev { animation: orbit 90s linear infinite reverse; }
   .animate-pulse-glow { animation: pulse-glow 8s ease-in-out infinite; }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(4%, -3%) scale(1.06); }
+  }
+  @keyframes float-rev {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-3%, 4%) scale(1.08); }
+  }
+  .animate-float-slow { animation: float-slow 22s ease-in-out infinite; }
+  .animate-float-rev { animation: float-rev 28s ease-in-out infinite; }
+
+  @keyframes dash-drift {
+    to { stroke-dashoffset: -400; }
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.9; }
+  }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
 }
