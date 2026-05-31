@@ -118,8 +118,73 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <SiteLayout>
+        <Outlet />
+      </SiteLayout>
     </QueryClientProvider>
+  );
+}
+
+const TABS = [
+  { to: "/", label: "home" },
+  { to: "/about", label: "about" },
+  { to: "/work", label: "work" },
+  { to: "/building", label: "building" },
+  { to: "/quests", label: "side quests" },
+  { to: "/contact", label: "contact" },
+] as const;
+
+function SiteLayout({ children }: { children: ReactNode }) {
+  return (
+    <div className="grain relative flex min-h-screen flex-col">
+      <header
+        className="sticky top-0 z-40 backdrop-blur-md border-b"
+        style={{
+          borderColor: "color-mix(in oklab, var(--eclipse-muted) 25%, transparent)",
+          background: "color-mix(in oklab, var(--eclipse-deep) 75%, transparent)",
+        }}
+      >
+        <nav className="container mx-auto px-6 md:px-10 h-16 flex items-center justify-between gap-6">
+          <Link
+            to="/"
+            className="font-mono text-sm tracking-tight text-[var(--eclipse-foreground)] hover:text-[var(--eclipse-accent)] transition-colors lowercase"
+          >
+            ansh dwivedi<span className="text-[var(--eclipse-accent)]">.</span>
+          </Link>
+          <ul className="flex items-center gap-1 md:gap-2 overflow-x-auto no-scrollbar">
+            {TABS.map((t) => (
+              <li key={t.to}>
+                <Link
+                  to={t.to}
+                  activeOptions={{ exact: true }}
+                  className="px-3 py-1.5 rounded-full font-mono text-[12px] md:text-[13px] tracking-wide text-[color:var(--eclipse-foreground)]/70 hover:text-[var(--eclipse-accent)] transition-colors data-[status=active]:text-[var(--eclipse-deep)] data-[status=active]:bg-[var(--eclipse-accent)] lowercase whitespace-nowrap"
+                >
+                  {t.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </header>
+      <main className="relative z-10 flex-1">{children}</main>
+      <SiteFooter />
+    </div>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer
+      className="relative border-t"
+      style={{ borderColor: "color-mix(in oklab, var(--eclipse-muted) 25%, transparent)" }}
+    >
+      <div className="container mx-auto px-6 md:px-10 py-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-[color:var(--eclipse-muted)] lowercase">
+        <div>© 2026 ansh dwivedi</div>
+        <div className="flex items-center gap-2">
+          <span className="size-1.5 rounded-full bg-[var(--eclipse-accent)] animate-pulse-glow" />
+          bengaluru, india
+        </div>
+      </div>
+    </footer>
   );
 }
