@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { useReveal } from "@/hooks/use-reveal";
 
 export const Route = createFileRoute("/building")({
@@ -14,21 +15,20 @@ export const Route = createFileRoute("/building")({
 });
 
 type Project = {
+  slug: string;
   name: string;
   tagline: string;
   blurb: string;
-  tags: string[];
-  href?: string;
   emoji?: string;
 };
 
 const PROJECTS: Project[] = [
   {
+    slug: "tsundoku",
     name: "tsundoku",
     tagline: "the books i bought faster than i read.",
     blurb:
       "a personal reading + to-be-read tracker, named for the japanese word for piling up books unread. track what's on your shelf, what you're mid-way through, and what you keep meaning to start.",
-    tags: ["side project", "reading", "in progress"],
     emoji: "📚",
   },
 ];
@@ -38,18 +38,17 @@ function BuildingPage() {
   return (
     <section className="relative py-24 md:py-32">
       <div className="container mx-auto px-6 md:px-10 max-w-5xl">
-        <p className="reveal font-mono text-xs uppercase tracking-[0.25em] text-[var(--eclipse-accent)] mb-6 lowercase">
-          03 — building
-        </p>
         <h1 className="reveal text-4xl md:text-6xl font-semibold tracking-tight mb-14 lowercase">
           currently shipping<span className="text-[var(--eclipse-accent)]">.</span>
         </h1>
 
         <div className="grid gap-6">
           {PROJECTS.map((p) => (
-            <article
+            <Link
               key={p.name}
-              className="reveal group relative rounded-3xl border p-8 md:p-10 transition-all duration-500 hover:-translate-y-1"
+              to="/building/$slug"
+              params={{ slug: p.slug }}
+              className="reveal group relative block rounded-3xl border p-8 md:p-10 transition-all duration-500 hover:-translate-y-1"
               style={{
                 borderColor: "color-mix(in oklab, var(--eclipse-muted) 35%, transparent)",
                 background:
@@ -75,30 +74,12 @@ function BuildingPage() {
                   <p className="mt-5 text-[color:var(--eclipse-foreground)]/75 leading-relaxed max-w-2xl lowercase">
                     {p.blurb}
                   </p>
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {p.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="font-mono text-[11px] uppercase tracking-wider px-3 py-1 rounded-full border"
-                        style={{
-                          borderColor: "color-mix(in oklab, var(--eclipse-muted) 50%, transparent)",
-                          color: "var(--eclipse-foreground)",
-                          background: "color-mix(in oklab, var(--eclipse-deep) 40%, transparent)",
-                        }}
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
                 </div>
-                <a
-                  href={p.href ?? "#"}
-                  className="self-center justify-self-start md:justify-self-end font-mono text-sm text-[var(--eclipse-accent)] hover:text-[color:var(--eclipse-foreground)] transition-colors lowercase"
-                >
-                  peek →
-                </a>
+                <span className="self-center justify-self-start md:justify-self-end font-mono text-sm text-[var(--eclipse-accent)] group-hover:text-[color:var(--eclipse-foreground)] transition-colors lowercase">
+                  read →
+                </span>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </div>
