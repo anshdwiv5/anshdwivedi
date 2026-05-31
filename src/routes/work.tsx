@@ -21,31 +21,58 @@ type Role = {
   tags?: string[];
 };
 
+type Edu = {
+  school: string;
+  degree: string;
+  period: string;
+  blurb: string;
+};
+
 // edit / add roles here
 const ROLES: Role[] = [
   {
-    company: "company name",
-    title: "product manager",
-    period: "2024 — present",
-    blurb:
-      "shipping things in the ai space. owning product strategy, working with eng + design to take 0→1 features from idea to launch.",
-    tags: ["product", "ai", "0→1"],
-  },
-  {
-    company: "previous company",
+    company: "flipkart",
     title: "associate product manager",
-    period: "2022 — 2024",
-    blurb:
-      "drove growth + activation experiments for a consumer product. ran a/b tests, talked to a lot of users, and learned what shipping really means.",
-    tags: ["growth", "consumer"],
+    period: "2025 — now",
+    blurb: "building b2b commerce + supply chain products.",
+    tags: ["b2b", "supply chain", "commerce"],
   },
   {
-    company: "first gig",
-    title: "product intern",
-    period: "2021 — 2022",
-    blurb:
-      "first product role — wrote prds, learned the craft, and figured out that this was the thing.",
-    tags: ["intern", "learning"],
+    company: "chiratae ventures",
+    title: "investments intern",
+    period: "early 2025",
+    blurb: "early-stage consumertech. looked at deals, did the digging.",
+    tags: ["vc", "consumertech", "deals"],
+  },
+  {
+    company: "m2p fintech",
+    title: "pm intern",
+    period: "summer 2024",
+    blurb: "worked on a b2b debit-card management suite.",
+    tags: ["fintech", "b2b", "cards"],
+  },
+  {
+    company: "desklamp",
+    title: "strategy & growth intern",
+    period: "summer 2022",
+    blurb: "international markets.",
+    tags: ["strategy", "growth", "international"],
+  },
+];
+
+// edit / add education here
+const EDU: Edu[] = [
+  {
+    school: "iit madras",
+    degree: "b.tech",
+    period: "2021 — 2025",
+    blurb: "institute basketball team. plus a few too many clubs: saarang, e-cell, finclub, yrf, culinary.",
+  },
+  {
+    school: "sanskriti school",
+    degree: "science, econ, math",
+    period: "",
+    blurb: "new delhi.",
   },
 ];
 
@@ -108,6 +135,45 @@ function WorkPage() {
             </li>
           ))}
         </ol>
+
+        <div className="mt-24">
+          <p className="reveal font-mono text-xs uppercase tracking-[0.25em] text-[var(--eclipse-accent)] mb-6 lowercase">
+            03 — education
+          </p>
+          <h2 className="reveal text-3xl md:text-5xl font-semibold tracking-tight mb-12 lowercase">
+            where i learned things<span className="text-[var(--eclipse-accent)]">.</span>
+          </h2>
+
+          <ol className="relative space-y-6">
+            {EDU.map((e) => (
+              <li key={e.school + e.period} className="reveal">
+                <article
+                  className="group relative rounded-2xl border p-6 md:p-8 transition-all duration-300 hover:-translate-y-0.5"
+                  style={{
+                    borderColor: "color-mix(in oklab, var(--eclipse-muted) 30%, transparent)",
+                    background:
+                      "linear-gradient(135deg, color-mix(in oklab, var(--eclipse-surface) 55%, transparent), color-mix(in oklab, var(--eclipse-deep) 60%, transparent))",
+                  }}
+                >
+                  <div className="flex flex-wrap items-baseline justify-between gap-3 mb-2">
+                    <h3 className="text-xl md:text-2xl font-semibold tracking-tight lowercase">
+                      {e.degree}{" "}
+                      <span className="text-[var(--eclipse-accent)]">@ {e.school}</span>
+                    </h3>
+                    {e.period && (
+                      <span className="font-mono text-xs text-[color:var(--eclipse-muted)] lowercase">
+                        {e.period}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm md:text-base text-[color:var(--eclipse-foreground)]/75 leading-relaxed lowercase">
+                    {e.blurb}
+                  </p>
+                </article>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   );
