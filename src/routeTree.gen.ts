@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkRouteImport } from './routes/work'
 import { Route as QuestsRouteImport } from './routes/quests'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BuildingRouteImport } from './routes/building'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -23,6 +24,11 @@ const WorkRoute = WorkRouteImport.update({
 const QuestsRoute = QuestsRouteImport.update({
   id: '/quests',
   path: '/quests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BuildingRoute = BuildingRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/building': typeof BuildingRoute
+  '/contact': typeof ContactRoute
   '/quests': typeof QuestsRoute
   '/work': typeof WorkRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/building': typeof BuildingRoute
+  '/contact': typeof ContactRoute
   '/quests': typeof QuestsRoute
   '/work': typeof WorkRoute
 }
@@ -60,21 +68,30 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/building': typeof BuildingRoute
+  '/contact': typeof ContactRoute
   '/quests': typeof QuestsRoute
   '/work': typeof WorkRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/building' | '/quests' | '/work'
+  fullPaths: '/' | '/about' | '/building' | '/contact' | '/quests' | '/work'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/building' | '/quests' | '/work'
-  id: '__root__' | '/' | '/about' | '/building' | '/quests' | '/work'
+  to: '/' | '/about' | '/building' | '/contact' | '/quests' | '/work'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/building'
+    | '/contact'
+    | '/quests'
+    | '/work'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   BuildingRoute: typeof BuildingRoute
+  ContactRoute: typeof ContactRoute
   QuestsRoute: typeof QuestsRoute
   WorkRoute: typeof WorkRoute
 }
@@ -93,6 +110,13 @@ declare module '@tanstack/react-router' {
       path: '/quests'
       fullPath: '/quests'
       preLoaderRoute: typeof QuestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/building': {
@@ -123,6 +147,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BuildingRoute: BuildingRoute,
+  ContactRoute: ContactRoute,
   QuestsRoute: QuestsRoute,
   WorkRoute: WorkRoute,
 }
