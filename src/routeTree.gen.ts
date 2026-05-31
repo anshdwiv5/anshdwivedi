@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BuildingRouteImport } from './routes/building'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BuildingSlugRouteImport } from './routes/building.$slug'
 
 const WorkRoute = WorkRouteImport.update({
   id: '/work',
@@ -46,37 +47,59 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BuildingSlugRoute = BuildingSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BuildingRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/building': typeof BuildingRoute
+  '/building': typeof BuildingRouteWithChildren
   '/contact': typeof ContactRoute
   '/quests': typeof QuestsRoute
   '/work': typeof WorkRoute
+  '/building/$slug': typeof BuildingSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/building': typeof BuildingRoute
+  '/building': typeof BuildingRouteWithChildren
   '/contact': typeof ContactRoute
   '/quests': typeof QuestsRoute
   '/work': typeof WorkRoute
+  '/building/$slug': typeof BuildingSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/building': typeof BuildingRoute
+  '/building': typeof BuildingRouteWithChildren
   '/contact': typeof ContactRoute
   '/quests': typeof QuestsRoute
   '/work': typeof WorkRoute
+  '/building/$slug': typeof BuildingSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/building' | '/contact' | '/quests' | '/work'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/building'
+    | '/contact'
+    | '/quests'
+    | '/work'
+    | '/building/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/building' | '/contact' | '/quests' | '/work'
+  to:
+    | '/'
+    | '/about'
+    | '/building'
+    | '/contact'
+    | '/quests'
+    | '/work'
+    | '/building/$slug'
   id:
     | '__root__'
     | '/'
@@ -85,12 +108,13 @@ export interface FileRouteTypes {
     | '/contact'
     | '/quests'
     | '/work'
+    | '/building/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  BuildingRoute: typeof BuildingRoute
+  BuildingRoute: typeof BuildingRouteWithChildren
   ContactRoute: typeof ContactRoute
   QuestsRoute: typeof QuestsRoute
   WorkRoute: typeof WorkRoute
@@ -140,13 +164,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/building/$slug': {
+      id: '/building/$slug'
+      path: '/$slug'
+      fullPath: '/building/$slug'
+      preLoaderRoute: typeof BuildingSlugRouteImport
+      parentRoute: typeof BuildingRoute
+    }
   }
 }
+
+interface BuildingRouteChildren {
+  BuildingSlugRoute: typeof BuildingSlugRoute
+}
+
+const BuildingRouteChildren: BuildingRouteChildren = {
+  BuildingSlugRoute: BuildingSlugRoute,
+}
+
+const BuildingRouteWithChildren = BuildingRoute._addFileChildren(
+  BuildingRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  BuildingRoute: BuildingRoute,
+  BuildingRoute: BuildingRouteWithChildren,
   ContactRoute: ContactRoute,
   QuestsRoute: QuestsRoute,
   WorkRoute: WorkRoute,
@@ -154,3 +197,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
