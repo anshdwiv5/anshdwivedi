@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 
 import { useReveal } from "@/hooks/use-reveal";
-import { requestResume } from "@/lib/resume.functions";
+import { supabase } from "@/integrations/supabase/client";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/anshdwivedi/";
 const EMAIL = "anshdwiv5@gmail.com";
@@ -64,7 +63,6 @@ function ContactPage() {
 }
 
 function ResumeDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const submit = useServerFn(requestResume);
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
@@ -81,7 +79,13 @@ function ResumeDialog({ open, onClose }: { open: boolean; onClose: () => void })
     }
     setState("sending");
     try {
-      await submit({ data: { email: trimmed } });
+      // Stored directly from the browser using the public (anon) key, so the
+      // site stays a pure static SPA with no server runtime. Requires an RLS
+      // policy on `resume_requests` that allows anonymous inserts.
+      const { error: insertError } = await supabase
+        .from("resume_requests")
+        .insert({ email: trimmed });
+      if (insertError) throw insertError;
       setState("done");
     } catch (err) {
       console.error(err);
