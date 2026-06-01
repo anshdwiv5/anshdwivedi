@@ -1,118 +1,192 @@
+import { useEffect, useRef } from "react";
+
+/**
+ * Hero background — aurora gradient mesh + interactive particle constellation.
+ * Particles drift, react to the cursor, and link up to nearby neighbours.
+ * Layered with a chromatic aurora wash and a soft grid for depth.
+ */
 export function HeroBackground({ className = "" }: { className?: string }) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const mouse = { x: -9999, y: -9999, active: false };
+
+    type P = { x: number; y: number; vx: number; vy: number; r: number; hue: number };
+    let particles: P[] = [];
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const target = Math.min(110, Math.floor((width * height) / 14000));
+      particles = Array.from({ length: target }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
+        r: Math.random() * 1.6 + 0.4,
+        hue: 240 + Math.random() * 80, // periwinkle → violet → cyan
+      }));
+    };
+
+    const onMove = (e: PointerEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      mouse.active = true;
+    };
+    const onLeave = () => {
+      mouse.active = false;
+      mouse.x = -9999;
+      mouse.y = -9999;
+    };
+
+    let raf = 0;
+    const tick = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      const maxLink = 130;
+      const maxLinkSq = maxLink * maxLink;
+
+      // update + draw particles
+      for (const p of particles) {
+        // cursor repulsion
+        if (mouse.active) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < 140 * 140 && d2 > 0.01) {
+            const f = (140 - Math.sqrt(d2)) / 140;
+            p.vx += (dx / Math.sqrt(d2)) * f * 0.6;
+            p.vy += (dy / Math.sqrt(d2)) * f * 0.6;
+          }
+        }
+        // gentle friction
+        p.vx *= 0.985;
+        p.vy *= 0.985;
+        // micro-jitter so it never settles
+        p.vx += (Math.random() - 0.5) * 0.01;
+        p.vy += (Math.random() - 0.5) * 0.01;
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < -10) p.x = width + 10;
+        if (p.x > width + 10) p.x = -10;
+        if (p.y < -10) p.y = height + 10;
+        if (p.y > height + 10) p.y = -10;
+
+        ctx.beginPath();
+        ctx.fillStyle = `hsla(${p.hue}, 80%, 78%, 0.85)`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // constellation links
+      ctx.lineWidth = 0.6;
+      for (let i = 0; i < particles.length; i++) {
+        const a = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const b = particles[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < maxLinkSq) {
+            const t = 1 - d2 / maxLinkSq;
+            ctx.strokeStyle = `hsla(${(a.hue + b.hue) / 2}, 80%, 72%, ${t * 0.35})`;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      raf = requestAnimationFrame(tick);
+    };
+
+    resize();
+    raf = requestAnimationFrame(tick);
+    window.addEventListener("resize", resize);
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerleave", onLeave);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerleave", onLeave);
+    };
+  }, []);
+
   return (
     <div
       aria-hidden
       className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
     >
-      {/* Soft floating mesh blobs */}
+      {/* Aurora gradient blobs — magenta, cyan, violet wash */}
       <div
-        className="absolute -top-1/4 -left-1/4 w-[70vmax] h-[70vmax] rounded-full opacity-60 animate-float-slow"
+        className="absolute -top-[20%] -left-[15%] w-[70vmax] h-[70vmax] rounded-full opacity-70 animate-aurora-a"
         style={{
           background:
-            "radial-gradient(circle at 35% 35%, color-mix(in oklab, var(--eclipse-accent) 35%, transparent), transparent 60%)",
-          filter: "blur(60px)",
+            "radial-gradient(circle at 40% 40%, #7c3aed 0%, transparent 60%)",
+          filter: "blur(80px)",
         }}
       />
       <div
-        className="absolute -bottom-1/3 -right-1/4 w-[60vmax] h-[60vmax] rounded-full opacity-50 animate-float-rev"
+        className="absolute top-[10%] -right-[20%] w-[65vmax] h-[65vmax] rounded-full opacity-60 animate-aurora-b"
         style={{
           background:
-            "radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--eclipse-surface) 95%, transparent), transparent 60%)",
-          filter: "blur(70px)",
+            "radial-gradient(circle at 50% 50%, #ec4899 0%, transparent 60%)",
+          filter: "blur(90px)",
         }}
       />
       <div
-        className="absolute top-1/3 right-1/4 w-[36vmax] h-[36vmax] rounded-full opacity-40 animate-float-slow"
+        className="absolute -bottom-[25%] left-[20%] w-[60vmax] h-[60vmax] rounded-full opacity-55 animate-aurora-c"
         style={{
           background:
-            "radial-gradient(circle, color-mix(in oklab, var(--eclipse-muted) 60%, transparent), transparent 65%)",
-          filter: "blur(50px)",
-          animationDelay: "-12s",
+            "radial-gradient(circle at 50% 50%, #06b6d4 0%, transparent 65%)",
+          filter: "blur(90px)",
         }}
       />
 
-      {/* Flowing animated line-mesh */}
-      <svg
-        className="absolute inset-0 w-full h-full"
-        viewBox="0 0 1440 900"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <defs>
-          <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="var(--eclipse-accent)" stopOpacity="0" />
-            <stop offset="50%" stopColor="var(--eclipse-accent)" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="var(--eclipse-accent)" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient id="lineGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="var(--eclipse-muted)" stopOpacity="0" />
-            <stop offset="50%" stopColor="var(--eclipse-muted)" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="var(--eclipse-muted)" stopOpacity="0" />
-          </linearGradient>
-          <filter id="softGlow">
-            <feGaussianBlur stdDeviation="1.2" />
-          </filter>
-        </defs>
+      {/* Faint grid for depth */}
+      <div
+        className="absolute inset-0 opacity-[0.08]"
+        style={{
+          backgroundImage:
+            "linear-gradient(var(--eclipse-accent) 1px, transparent 1px), linear-gradient(90deg, var(--eclipse-accent) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+          maskImage:
+            "radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 75%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 75%)",
+        }}
+      />
 
-        {/* Set of sweeping bezier curves */}
-        <g fill="none" strokeWidth="1" filter="url(#softGlow)">
-          {[0, 1, 2, 3, 4, 5, 6].map((i) => {
-            const offset = i * 60 - 120;
-            return (
-              <path
-                key={i}
-                d={`M ${-200 + offset} ${300 + i * 30}
-                    C ${300 + offset} ${100 + i * 20},
-                      ${900 + offset} ${700 - i * 25},
-                      ${1640 + offset} ${250 + i * 40}`}
-                stroke={i % 2 === 0 ? "url(#lineGrad)" : "url(#lineGrad2)"}
-                strokeDasharray="6 14"
-                style={{
-                  animation: `dash-drift ${28 + i * 4}s linear infinite`,
-                  animationDelay: `-${i * 3}s`,
-                  opacity: 0.45 + (i % 3) * 0.15,
-                }}
-              />
-            );
-          })}
-        </g>
+      {/* Interactive constellation canvas */}
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
-        {/* Concentric arcs — orbital feel */}
-        <g
-          fill="none"
-          stroke="var(--eclipse-accent)"
-          strokeOpacity="0.18"
-          strokeWidth="0.8"
-        >
-          <ellipse cx="1100" cy="220" rx="520" ry="180" className="animate-orbit-slow" style={{ transformOrigin: "1100px 220px" }} />
-          <ellipse cx="1100" cy="220" rx="380" ry="120" className="animate-orbit-rev" style={{ transformOrigin: "1100px 220px" }} />
-          <ellipse cx="320" cy="700" rx="460" ry="160" className="animate-orbit-rev" style={{ transformOrigin: "320px 700px" }} />
-        </g>
-
-        {/* Subtle particle dots */}
-        <g fill="var(--eclipse-accent)">
-          {[
-            [180, 140, 1.6, 4],
-            [420, 320, 1.2, 7],
-            [780, 120, 2, 5],
-            [1180, 480, 1.4, 9],
-            [260, 640, 1.8, 6],
-            [980, 760, 1.3, 8],
-            [600, 540, 1.5, 10],
-            [1320, 200, 1.1, 3],
-          ].map(([cx, cy, r, d], i) => (
-            <circle
-              key={i}
-              cx={cx}
-              cy={cy}
-              r={r}
-              style={{
-                animation: `twinkle ${d}s ease-in-out infinite`,
-                animationDelay: `-${i * 0.7}s`,
-              }}
-            />
-          ))}
-        </g>
-      </svg>
+      {/* Bottom vignette for legibility */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-1/2"
+        style={{
+          background:
+            "linear-gradient(to top, color-mix(in oklab, var(--eclipse-deep) 70%, transparent), transparent)",
+        }}
+      />
     </div>
   );
 }
