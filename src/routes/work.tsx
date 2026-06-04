@@ -36,12 +36,8 @@ const ROLES: Role[] = [
     title: "associate product manager 2",
     period: "2026 — now",
     blurb: "building supply chain products for b2b commerce.",
-    did: [
-      "placeholder — to be added.",
-    ],
-    learnt: [
-      "placeholder — to be added.",
-    ],
+    did: [],
+    learnt: [],
   },
   {
     company: "flipkart",
@@ -160,6 +156,7 @@ function WorkPage() {
                 <p className="text-sm md:text-base text-[color:var(--eclipse-foreground)]/75 leading-relaxed lowercase">
                   {r.blurb}
                 </p>
+                {(r.did.length > 0 || r.learnt.length > 0) && (
                 <div className="mt-6 grid md:grid-cols-2 gap-5">
                   <div>
                     <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--eclipse-accent)] mb-3 lowercase">
@@ -188,6 +185,7 @@ function WorkPage() {
                     </ul>
                   </div>
                 </div>
+                )}
               </article>
             </li>
           ))}
