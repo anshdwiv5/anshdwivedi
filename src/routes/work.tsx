@@ -33,30 +33,46 @@ type Edu = {
 const ROLES: Role[] = [
   {
     company: "flipkart",
-    title: "associate product manager",
-    period: "2025 — now",
-    blurb: "building b2b commerce + supply chain products.",
+    title: "associate product manager 2",
+    period: "2026 — now",
+    blurb: "building supply chain products for b2b commerce.",
     did: [
-      "placeholder — shipped feature x for the b2b seller flow.",
-      "placeholder — owned roadmap for supply-chain module y.",
+      "placeholder — to be added.",
     ],
     learnt: [
-      "placeholder — how large-org product cycles actually move.",
-      "placeholder — the difference between a pretty roadmap and a real one.",
+      "placeholder — to be added.",
+    ],
+  },
+  {
+    company: "flipkart",
+    title: "associate product manager 1",
+    period: "2025 — now",
+    blurb: "building supply chain products for b2b commerce.",
+    did: [
+      "onboarded new clients (coles, serhafen) to our logo list.",
+      "owned roadmap for oms, returns & cx supply-chain module.",
+      "created client-facing config layers to reduce change requests & dev bw.",
+    ],
+    learnt: [
+      "b2b saas pming: product-led vs client-led approach.",
+      "how a mature ecommerce supply chain comes together e2e.",
+      "every problem becomes a people problem eventually.",
     ],
   },
   {
     company: "chiratae ventures",
     title: "investments intern",
     period: "early 2025",
-    blurb: "early-stage consumertech. looked at deals, did the digging.",
+    blurb: "early-stage consumertech, particular focus on travel, kids bpc & pet.",
     did: [
-      "placeholder — diligence on n early-stage consumertech deals.",
-      "placeholder — built thesis memos for the team.",
+      "spoke to founders building weird, ambitious things.",
+      "dug through markets, metrics and decks.",
+      "wrote investment memos nobody reads unless they're important.",
     ],
     learnt: [
-      "placeholder — how investors actually read a pitch deck.",
-      "placeholder — what separates a market from a feature.",
+      "great founders see the world differently.",
+      "market timing matters more than people admit.",
+      "conviction is expensive.",
     ],
   },
   {
@@ -65,12 +81,14 @@ const ROLES: Role[] = [
     period: "summer 2024",
     blurb: "worked on a b2b debit-card management suite.",
     did: [
-      "placeholder — scoped the card-management suite for b2b clients.",
-      "placeholder — wrote prds + worked with eng + design.",
+      "scoped the card-management suite for b2b clients across sea & mena.",
+      "learnt to write prds & work with sales + engg + design.",
+      "turned rfp shortcomings into roadmap.",
     ],
     learnt: [
-      "placeholder — how regulated fintech really works under the hood.",
-      "placeholder — the value of a clean api contract.",
+      "how regulated fintech really works under the hood.",
+      "the value of a clean api contract.",
+      "spent time understanding how money actually moves.",
     ],
   },
   {
@@ -79,12 +97,14 @@ const ROLES: Role[] = [
     period: "summer 2022",
     blurb: "international markets.",
     did: [
-      "placeholder — researched and prioritised international markets.",
-      "placeholder — ran early growth experiments.",
+      "ran early growth experiments.",
+      "focussed on marketing framing for different cohorts.",
+      "spoke to customers & clients and turned feedback into insights.",
     ],
     learnt: [
-      "placeholder — that 'go-to-market' is mostly about distribution, not product.",
-      "placeholder — the patience early-stage startups demand.",
+      "growth is rarely a marketing problem.",
+      "distribution is harder than building.",
+      "startups move on instinct until they can move on data.",
     ],
   },
 ];
