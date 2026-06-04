@@ -76,7 +76,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { name: "theme-color", content: "#0B0A2E" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+      { name: "mobile-web-app-capable", content: "yes" },
       { title: "Ansh Dwivedi" },
       { name: "description", content: "A modern, dark-mode personal website showcasing Ansh Dwivedi's projects and journey." },
       { name: "author", content: "Lovable" },
@@ -157,7 +161,7 @@ function SiteLayout({ children }: { children: ReactNode }) {
         <nav className="container mx-auto px-6 md:px-10 h-16 flex items-center justify-between gap-6">
           <Link
             to="/"
-            className="font-mono text-sm tracking-tight text-[var(--eclipse-foreground)] hover:text-[var(--eclipse-accent)] transition-colors lowercase"
+            className="text-sm font-medium tracking-tight text-[var(--eclipse-foreground)] hover:text-[var(--eclipse-accent)] transition-colors lowercase"
           >
             ansh dwivedi<span className="text-[var(--eclipse-accent)]">.</span>
           </Link>
@@ -167,7 +171,7 @@ function SiteLayout({ children }: { children: ReactNode }) {
                 <Link
                   to={t.to}
                   activeOptions={{ exact: true }}
-                  className="px-3 py-1.5 rounded-full font-mono text-[12px] md:text-[13px] tracking-wide text-[color:var(--eclipse-foreground)]/70 hover:text-[var(--eclipse-accent)] transition-colors data-[status=active]:text-[var(--eclipse-deep)] data-[status=active]:bg-[var(--eclipse-accent)] lowercase whitespace-nowrap"
+                  className="px-3 py-1.5 rounded-full text-[12px] md:text-[13px] font-medium tracking-wide text-[color:var(--eclipse-foreground)]/70 hover:text-[var(--eclipse-accent)] transition-colors data-[status=active]:text-[var(--eclipse-deep)] data-[status=active]:bg-[var(--eclipse-accent)] lowercase whitespace-nowrap"
                 >
                   {t.label}
                 </Link>
@@ -188,7 +192,7 @@ function SiteFooter() {
       className="relative border-t"
       style={{ borderColor: "color-mix(in oklab, var(--eclipse-muted) 25%, transparent)" }}
     >
-      <div className="container mx-auto px-6 md:px-10 py-8 flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-[color:var(--eclipse-muted)] lowercase">
+      <div className="container mx-auto px-6 md:px-10 py-8 flex flex-wrap items-center justify-between gap-3 text-xs font-medium text-[color:var(--eclipse-muted)] lowercase">
         <div>© 2026 ansh dwivedi</div>
         <div className="flex items-center gap-2">
           <span className="size-1.5 rounded-full bg-[var(--eclipse-accent)] animate-pulse-glow" />
