@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { HeroBackground } from "@/components/site/hero-background";
+import { PunchBag } from "@/components/site/punch-bag";
 import { useReveal } from "@/hooks/use-reveal";
 import portrait from "@/assets/ansh-portrait.png";
 
@@ -10,10 +11,10 @@ export const Route = createFileRoute("/")({
       { title: "ansh dwivedi" },
       {
         name: "description",
-        content: "ansh dwivedi — product, ai, and a few side quests.",
+        content: "ansh dwivedi. product, ai, and a pile of side quests.",
       },
       { property: "og:title", content: "ansh dwivedi" },
-      { property: "og:description", content: "product, ai, and a few side quests." },
+      { property: "og:description", content: "product, ai, and a pile of side quests." },
     ],
   }),
   component: Index,
@@ -30,17 +31,17 @@ function Index() {
           <div className="reveal mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--eclipse-foreground)]/15 bg-[color:var(--eclipse-surface)]/70 backdrop-blur px-3 py-1 text-[11px] font-medium tracking-wide text-[color:var(--eclipse-muted)] lowercase">
               <span className="size-1.5 rounded-full bg-[var(--eclipse-accent)] animate-pulse-glow" />
-              now — apm @ flipkart · bengaluru
+              now · apm @ flipkart · bengaluru
             </span>
             <h1 className="font-display mt-7 md:mt-10 text-[clamp(2.75rem,10vw,7rem)] leading-[0.95] tracking-[-0.03em] text-[var(--eclipse-foreground)] lowercase">
-              build things.<br />
+              take the scenic route.<br />
               <em className="not-italic font-display italic text-[var(--eclipse-accent)]">
                 go the distance.
               </em>
             </h1>
             <p className="reveal mt-6 md:mt-7 mx-auto max-w-xl text-base md:text-lg text-[color:var(--eclipse-foreground)]/70 leading-relaxed lowercase">
-              i'm ansh — product by day, tinkerer the rest of the time. shipping a lot of
-              small things, some of which work.
+              i'm ansh. curious about products, people, incentives, systems, and the weird
+              ways they interact.
             </p>
             <div className="reveal mt-8 md:mt-10 flex flex-wrap items-center justify-center gap-3">
               <Link
@@ -48,6 +49,12 @@ function Index() {
                 className="inline-flex items-center justify-center rounded-full bg-[var(--eclipse-foreground)] px-5 py-2.5 text-sm font-medium text-[var(--eclipse-surface)] hover:bg-[color:var(--eclipse-foreground)]/85 transition-colors lowercase"
               >
                 see my work →
+              </Link>
+              <Link
+                to="/building"
+                className="inline-flex items-center justify-center rounded-full border border-[color:var(--eclipse-foreground)]/15 bg-[color:var(--eclipse-surface)]/70 backdrop-blur px-5 py-2.5 text-sm font-medium text-[var(--eclipse-foreground)] hover:bg-[color:var(--eclipse-surface)] transition-colors lowercase"
+              >
+                fun projects
               </Link>
               <Link
                 to="/quests"
@@ -78,11 +85,9 @@ function Index() {
             <div
               className="absolute -right-2 md:right-4 top-6 md:top-12 z-20 rotate-6 select-none rounded-2xl bg-[var(--eclipse-foreground)] px-3 py-1.5 text-[11px] font-medium text-[var(--eclipse-surface)] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)] lowercase font-display italic"
             >
-              yo, adrian — i shipped it.
+              yo, adrian
             </div>
-            <div className="absolute -left-2 md:left-4 bottom-8 md:bottom-12 z-20 text-3xl md:text-4xl animate-punch select-none" aria-hidden>
-              🥊
-            </div>
+            <PunchBag />
           </div>
         </div>
 
@@ -92,14 +97,10 @@ function Index() {
             {Array.from({ length: 2 }).map((_, k) => (
               <div key={k} className="flex shrink-0 items-center">
                 {[
-                  "ship daily",
-                  "talk to users",
-                  "lift heavy",
-                  "write the prd",
-                  "run the mile",
-                  "fix the bug",
-                  "ask the dumb question",
-                  "training montage in progress",
+                  "this should be simple",
+                  "why isn't it simple",
+                  "okay maybe it's hard",
+                  "never mind we are rebuilding everything",
                 ].map((t) => (
                   <span key={t} className="mx-6 inline-flex items-center gap-3">
                     <span className="size-1 rounded-full bg-[var(--eclipse-accent)]" />
@@ -124,9 +125,6 @@ function Index() {
                 a little bit of everything.
               </h2>
             </div>
-            <p className="max-w-sm text-sm md:text-base text-[color:var(--eclipse-foreground)]/65 lowercase">
-              pick a card. each one opens a longer story.
-            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4 md:gap-5 auto-rows-[minmax(180px,_auto)]">
@@ -196,7 +194,7 @@ function Index() {
             >
               <span className="text-[11px] font-medium tracking-[0.2em] text-[color:var(--eclipse-accent)] uppercase">side quests</span>
               <h3 className="font-display mt-3 text-2xl md:text-4xl tracking-[-0.02em] text-[var(--eclipse-surface)] lowercase">
-                ran a half-marathon. froze on a 10k. still going.
+                ran a half-marathon. ran 10k on a frozen lake. still going.
               </h3>
               <p className="mt-3 text-sm text-[color:var(--eclipse-surface)]/65 lowercase">
                 detours, hobbies, and one-offs i keep collecting.

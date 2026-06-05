@@ -1,0 +1,30 @@
+{
+  "name": "Ansh Dwivedi",
+  "short_name": "ansh",
+  "description": "Personal website of Ansh Dwivedi — projects, writing, and the journey of building things with stubborn optimism.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F3F2EF",
+  "theme_color": "#F3F2EF",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

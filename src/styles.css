@@ -225,6 +225,14 @@
   }
   .animate-punch { animation: punch 1.6s ease-in-out infinite; transform-origin: 50% 80%; }
 
+  @keyframes punch-hit {
+    0% { transform: scale(1) rotate(-4deg); }
+    35% { transform: scale(1.4) rotate(14deg) translate(8px, -6px); }
+    60% { transform: scale(0.9) rotate(-10deg) translate(-4px, 2px); }
+    100% { transform: scale(1) rotate(-4deg); }
+  }
+  .animate-punch-hit { animation: punch-hit 0.36s ease-out; transform-origin: 50% 80%; }
+
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }

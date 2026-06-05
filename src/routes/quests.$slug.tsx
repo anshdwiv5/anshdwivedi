@@ -5,7 +5,7 @@ import { QUESTS } from "@/data/quests";
 export const Route = createFileRoute("/quests/$slug")({
   head: ({ params }) => ({
     meta: [
-      { title: `${params.slug.replace(/-/g, " ")} — side quests — ansh dwivedi` },
+      { title: `${params.slug.replace(/-/g, " ")} · side quests · ansh dwivedi` },
       { name: "description", content: `notes & moments from ${params.slug.replace(/-/g, " ")}.` },
     ],
   }),
@@ -55,7 +55,7 @@ function QuestDetail() {
 
         {quest.entries.length === 0 ? (
           <p className="reveal text-sm text-[color:var(--eclipse-muted)] italic lowercase">
-            nothing logged here yet — entries coming soon.
+            nothing logged here yet. entries coming soon.
           </p>
         ) : (
           <div className="space-y-14">
@@ -117,7 +117,7 @@ function QuestDetail() {
                     className="mt-6 rounded-xl border border-dashed p-6 text-center text-xs text-[color:var(--eclipse-muted)] lowercase"
                     style={{ borderColor: "color-mix(in oklab, var(--eclipse-muted) 40%, transparent)" }}
                   >
-                    photos / videos slot — drop media for entry {idx + 1} here.
+                    photos / videos slot. drop media for entry {idx + 1} here.
                   </div>
                 )}
               </section>

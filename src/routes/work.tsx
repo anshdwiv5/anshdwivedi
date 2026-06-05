@@ -4,9 +4,9 @@ import { useReveal } from "@/hooks/use-reveal";
 export const Route = createFileRoute("/work")({
   head: () => ({
     meta: [
-      { title: "work — ansh dwivedi" },
-      { name: "description", content: "work experience of ansh dwivedi — product roles across teams and startups." },
-      { property: "og:title", content: "work — ansh dwivedi" },
+      { title: "work · ansh dwivedi" },
+      { name: "description", content: "work experience of ansh dwivedi. product roles across teams and startups." },
+      { property: "og:title", content: "work · ansh dwivedi" },
       { property: "og:description", content: "where i've worked and what i shipped." },
     ],
   }),
@@ -34,7 +34,7 @@ const ROLES: Role[] = [
   {
     company: "flipkart",
     title: "associate product manager 2",
-    period: "2026 — now",
+    period: "2026 to now",
     blurb: "building supply chain products for b2b commerce.",
     did: [],
     learnt: [],
@@ -42,7 +42,7 @@ const ROLES: Role[] = [
   {
     company: "flipkart",
     title: "associate product manager 1",
-    period: "2025 — now",
+    period: "2025 to now",
     blurb: "building supply chain products for b2b commerce.",
     did: [
       "onboarded new clients (coles, serhafen) to our logo list.",
@@ -110,7 +110,7 @@ const EDU: Edu[] = [
   {
     school: "iit madras",
     degree: "b.tech",
-    period: "2021 — 2025",
+    period: "2021 to 2025",
     blurb: "institute basketball team. plus a few too many clubs: saarang, e-cell, finclub, yrf, culinary.",
   },
   {

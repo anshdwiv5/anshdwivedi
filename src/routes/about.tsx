@@ -4,9 +4,9 @@ import { useReveal } from "@/hooks/use-reveal";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "about — ansh dwivedi" },
-      { name: "description", content: "a little about ansh — product manager, ai tinkerer, side-quest collector." },
-      { property: "og:title", content: "about — ansh dwivedi" },
+      { title: "about · ansh dwivedi" },
+      { name: "description", content: "a little about ansh. product manager, ai tinkerer, side-quest collector." },
+      { property: "og:title", content: "about · ansh dwivedi" },
       { property: "og:description", content: "product, ai, and a few side quests." },
     ],
   }),
@@ -23,17 +23,23 @@ function AboutPage() {
         </h1>
         <div className="space-y-7 text-lg md:text-xl leading-relaxed text-[color:var(--eclipse-foreground)]/85 font-light lowercase">
           <p className="reveal">
-            i'm a <span className="text-[var(--eclipse-accent)]">product manager</span> by day,
-            and a tinkerer the rest of the time. i like figuring out what should exist, then
-            trying very hard to make it exist well.
+            i'm a <span className="text-[var(--eclipse-accent)]">product manager</span> by day.
+            the rest of the time i'm at the gym, out on a run, or building something nobody
+            asked for. i like figuring out what should exist, then grinding until it actually does.
           </p>
           <p className="reveal">
-            lately i've been deep in the ai rabbit hole — building, breaking, and shipping
-            small things on the side. most of them don't work. a few do. i love the few.
+            lately i've been deep in the ai rabbit hole. building stuff, breaking it,
+            occasionally shipping it. most of it flops. a few things stick. i live for the
+            few that stick.
           </p>
           <p className="reveal">
-            outside of work i collect side quests like other people collect books — which,
-            fittingly, is also a thing i do.
+            i'm mostly grind and goof. i don't take much seriously, least of all myself. i
+            collect side quests the way other people collect books, which, fittingly, is also a
+            thing i do (ask me about the unread pile).
+          </p>
+          <p className="reveal">
+            the curiosity is the constant: everything turns into a system if you look at it
+            long enough, and i tend to keep looking after everyone else has moved on.
           </p>
         </div>
 

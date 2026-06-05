@@ -8,9 +8,9 @@ const EMAIL = "anshdwiv5@gmail.com";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "contact — ansh dwivedi" },
-      { name: "description", content: "get in touch with ansh — email, linkedin, or request a résumé." },
-      { property: "og:title", content: "contact — ansh dwivedi" },
+      { title: "contact · ansh dwivedi" },
+      { name: "description", content: "get in touch with ansh. email, linkedin, or request a résumé." },
+      { property: "og:title", content: "contact · ansh dwivedi" },
       { property: "og:description", content: "say hi." },
     ],
   }),

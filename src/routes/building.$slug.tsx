@@ -4,7 +4,7 @@ import { useReveal } from "@/hooks/use-reveal";
 export const Route = createFileRoute("/building/$slug")({
   head: ({ params }) => ({
     meta: [
-      { title: `${params.slug} — building — ansh dwivedi` },
+      { title: `${params.slug} · building · ansh dwivedi` },
       { name: "description", content: `notes on ${params.slug}.` },
     ],
   }),
@@ -41,7 +41,7 @@ function ProjectPostPage() {
         <div className="space-y-8 text-[color:var(--eclipse-foreground)]/85 leading-relaxed lowercase">
           {/* normal text */}
           <p className="reveal text-lg">
-            placeholder body text. swap this with the opening paragraph for your post — what
+            placeholder body text. swap this with the opening paragraph for your post. what
             the project is, why you're building it, and what you're hoping it becomes.
           </p>
 
@@ -52,7 +52,7 @@ function ProjectPostPage() {
           </h2>
           <p className="reveal">
             placeholder normal paragraph under an h2. talk about the problem, the inspiration,
-            or the architecture — whatever fits the section.
+            or the architecture, whatever fits the section.
           </p>
 
           {/* H3 */}
@@ -79,7 +79,7 @@ function ProjectPostPage() {
           </h2>
           <p className="reveal">
             keep adding paragraphs, headings, and sub-headings as you need. all text is
-            lowercase by convention — keep it that way.
+            lowercase by convention, keep it that way.
           </p>
         </div>
       </div>

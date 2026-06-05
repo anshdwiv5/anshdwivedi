@@ -95,6 +95,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2e70e0ce-afcd-4bd5-b22f-c144e9cb9cf3/id-preview-ed9b00a3--c1a3aac4-85dc-4c22-934a-e8374df95bfd.lovable.app-1780223427121.png" },
     ],
     links: [
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/icons/favicon-32.png" },
+      { rel: "icon", type: "image/png", sizes: "16x16", href: "/icons/favicon-16.png" },
+      { rel: "icon", type: "image/png", sizes: "192x192", href: "/icons/icon-192.png" },
+      { rel: "icon", type: "image/png", sizes: "512x512", href: "/icons/icon-512.png" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/icons/apple-touch-icon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -193,7 +199,7 @@ function SiteFooter() {
       style={{ borderColor: "color-mix(in oklab, var(--eclipse-foreground) 10%, transparent)" }}
     >
       <div className="container mx-auto px-5 md:px-8 py-8 flex flex-wrap items-center justify-between gap-3 text-xs font-medium text-[color:var(--eclipse-muted)] lowercase">
-        <div>© 2026 ansh dwivedi — built with stubborn optimism.</div>
+        <div>© 2026 ansh dwivedi · built with stubborn optimism.</div>
         <div className="flex items-center gap-2">
           <span className="size-1.5 rounded-full bg-[var(--eclipse-accent)] animate-pulse-glow" />
           bengaluru, india

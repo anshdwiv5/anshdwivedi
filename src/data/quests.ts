@@ -41,7 +41,7 @@ export const QUESTS: Quest[] = [
         media: [],
       },
       {
-        title: "full marathon — in training",
+        title: "full marathon, in training",
         date: "2026",
         body: "currently building base mileage for my first full. plan: tata mumbai marathon.",
         media: [],
