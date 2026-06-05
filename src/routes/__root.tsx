@@ -77,9 +77,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { name: "theme-color", content: "#0B0A2E" },
+      { name: "theme-color", content: "#F3F2EF" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
-      { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "default" },
       { name: "mobile-web-app-capable", content: "yes" },
       { title: "Ansh Dwivedi" },
       { name: "description", content: "A modern, dark-mode personal website showcasing Ansh Dwivedi's projects and journey." },
@@ -99,7 +99,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=JetBrains+Mono:wght@400;500&display=swap",
       },
       {
         rel: "stylesheet",
@@ -152,16 +152,16 @@ function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <div className="grain relative flex min-h-screen flex-col">
       <header
-        className="sticky top-0 z-40 backdrop-blur-md border-b"
+        className="sticky top-0 z-40 backdrop-blur-xl border-b"
         style={{
-          borderColor: "color-mix(in oklab, var(--eclipse-muted) 25%, transparent)",
-          background: "color-mix(in oklab, var(--eclipse-deep) 75%, transparent)",
+          borderColor: "color-mix(in oklab, var(--eclipse-foreground) 10%, transparent)",
+          background: "color-mix(in oklab, var(--eclipse-deep) 78%, transparent)",
         }}
       >
-        <nav className="container mx-auto px-6 md:px-10 h-16 flex items-center justify-between gap-6">
+        <nav className="container mx-auto px-5 md:px-8 h-14 md:h-16 flex items-center justify-between gap-6">
           <Link
             to="/"
-            className="text-sm font-medium tracking-tight text-[var(--eclipse-foreground)] hover:text-[var(--eclipse-accent)] transition-colors lowercase"
+            className="text-[13px] md:text-sm font-semibold tracking-tight text-[var(--eclipse-foreground)] hover:text-[var(--eclipse-accent)] transition-colors lowercase"
           >
             ansh dwivedi<span className="text-[var(--eclipse-accent)]">.</span>
           </Link>
@@ -171,7 +171,7 @@ function SiteLayout({ children }: { children: ReactNode }) {
                 <Link
                   to={t.to}
                   activeOptions={{ exact: true }}
-                  className="px-3 py-1.5 rounded-full text-[12px] md:text-[13px] font-medium tracking-wide text-[color:var(--eclipse-foreground)]/70 hover:text-[var(--eclipse-accent)] transition-colors data-[status=active]:text-[var(--eclipse-deep)] data-[status=active]:bg-[var(--eclipse-accent)] lowercase whitespace-nowrap"
+                  className="px-3 py-1.5 rounded-full text-[12px] md:text-[13px] font-medium tracking-tight text-[color:var(--eclipse-foreground)]/65 hover:text-[var(--eclipse-foreground)] hover:bg-[color:var(--eclipse-foreground)]/5 transition-colors data-[status=active]:text-[var(--eclipse-surface)] data-[status=active]:bg-[var(--eclipse-foreground)] lowercase whitespace-nowrap"
                 >
                   {t.label}
                 </Link>
@@ -190,10 +190,10 @@ function SiteFooter() {
   return (
     <footer
       className="relative border-t"
-      style={{ borderColor: "color-mix(in oklab, var(--eclipse-muted) 25%, transparent)" }}
+      style={{ borderColor: "color-mix(in oklab, var(--eclipse-foreground) 10%, transparent)" }}
     >
-      <div className="container mx-auto px-6 md:px-10 py-8 flex flex-wrap items-center justify-between gap-3 text-xs font-medium text-[color:var(--eclipse-muted)] lowercase">
-        <div>© 2026 ansh dwivedi</div>
+      <div className="container mx-auto px-5 md:px-8 py-8 flex flex-wrap items-center justify-between gap-3 text-xs font-medium text-[color:var(--eclipse-muted)] lowercase">
+        <div>© 2026 ansh dwivedi — built with stubborn optimism.</div>
         <div className="flex items-center gap-2">
           <span className="size-1.5 rounded-full bg-[var(--eclipse-accent)] animate-pulse-glow" />
           bengaluru, india
