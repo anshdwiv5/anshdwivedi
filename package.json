@@ -8,6 +8,8 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
+    "deploy": "npx wrangler pages deploy dist/client --project-name anshdwivedi --branch main",
+    "ship": "npm run build && npm run deploy",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
