@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BuildingRouteImport } from './routes/building'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as QuestsSlugRouteImport } from './routes/quests.$slug'
 import { Route as BuildingSlugRouteImport } from './routes/building.$slug'
 
 const WorkRoute = WorkRouteImport.update({
@@ -47,6 +48,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuestsSlugRoute = QuestsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => QuestsRoute,
+} as any)
 const BuildingSlugRoute = BuildingSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -58,18 +64,20 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/building': typeof BuildingRouteWithChildren
   '/contact': typeof ContactRoute
-  '/quests': typeof QuestsRoute
+  '/quests': typeof QuestsRouteWithChildren
   '/work': typeof WorkRoute
   '/building/$slug': typeof BuildingSlugRoute
+  '/quests/$slug': typeof QuestsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/building': typeof BuildingRouteWithChildren
   '/contact': typeof ContactRoute
-  '/quests': typeof QuestsRoute
+  '/quests': typeof QuestsRouteWithChildren
   '/work': typeof WorkRoute
   '/building/$slug': typeof BuildingSlugRoute
+  '/quests/$slug': typeof QuestsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,9 +85,10 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/building': typeof BuildingRouteWithChildren
   '/contact': typeof ContactRoute
-  '/quests': typeof QuestsRoute
+  '/quests': typeof QuestsRouteWithChildren
   '/work': typeof WorkRoute
   '/building/$slug': typeof BuildingSlugRoute
+  '/quests/$slug': typeof QuestsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/quests'
     | '/work'
     | '/building/$slug'
+    | '/quests/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/quests'
     | '/work'
     | '/building/$slug'
+    | '/quests/$slug'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/quests'
     | '/work'
     | '/building/$slug'
+    | '/quests/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -116,7 +128,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BuildingRoute: typeof BuildingRouteWithChildren
   ContactRoute: typeof ContactRoute
-  QuestsRoute: typeof QuestsRoute
+  QuestsRoute: typeof QuestsRouteWithChildren
   WorkRoute: typeof WorkRoute
 }
 
@@ -164,6 +176,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quests/$slug': {
+      id: '/quests/$slug'
+      path: '/$slug'
+      fullPath: '/quests/$slug'
+      preLoaderRoute: typeof QuestsSlugRouteImport
+      parentRoute: typeof QuestsRoute
+    }
     '/building/$slug': {
       id: '/building/$slug'
       path: '/$slug'
@@ -186,14 +205,34 @@ const BuildingRouteWithChildren = BuildingRoute._addFileChildren(
   BuildingRouteChildren,
 )
 
+interface QuestsRouteChildren {
+  QuestsSlugRoute: typeof QuestsSlugRoute
+}
+
+const QuestsRouteChildren: QuestsRouteChildren = {
+  QuestsSlugRoute: QuestsSlugRoute,
+}
+
+const QuestsRouteWithChildren =
+  QuestsRoute._addFileChildren(QuestsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BuildingRoute: BuildingRouteWithChildren,
   ContactRoute: ContactRoute,
-  QuestsRoute: QuestsRoute,
+  QuestsRoute: QuestsRouteWithChildren,
   WorkRoute: WorkRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
