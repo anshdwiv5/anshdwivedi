@@ -1,5 +1,5 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { useReveal } from "@/hooks/use-reveal";
 import { QUESTS, type Quest } from "@/data/quests";
 import {
@@ -233,7 +233,3 @@ function QuestModal({
     </Dialog>
   );
 }
-
-// avoid unused import warnings
-void Link;
-void useEffect;
