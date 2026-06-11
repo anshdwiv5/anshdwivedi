@@ -91,26 +91,6 @@ function Index() {
           </div>
         </div>
 
-        {/* training-montage marquee */}
-        <div className="relative z-10 border-y border-[color:var(--eclipse-foreground)]/10 bg-[color:var(--eclipse-surface)]/60 backdrop-blur overflow-hidden">
-          <div className="flex whitespace-nowrap animate-marquee py-3 text-sm font-medium text-[color:var(--eclipse-foreground)]/65 lowercase">
-            {Array.from({ length: 2 }).map((_, k) => (
-              <div key={k} className="flex shrink-0 items-center">
-                {[
-                  "this should be simple",
-                  "why isn't it simple",
-                  "okay maybe it's hard",
-                  "never mind we are rebuilding everything",
-                ].map((t) => (
-                  <span key={t} className="mx-6 inline-flex items-center gap-3">
-                    <span className="size-1 rounded-full bg-[var(--eclipse-accent)]" />
-                    {t}
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* ---------- BENTO CARD GRID ---------- */}

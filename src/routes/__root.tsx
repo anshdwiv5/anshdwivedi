@@ -200,7 +200,7 @@ function SiteFooter() {
       style={{ borderColor: "color-mix(in oklab, var(--eclipse-foreground) 10%, transparent)" }}
     >
       <div className="container mx-auto px-5 md:px-8 py-8 flex flex-wrap items-center justify-between gap-3 text-xs font-medium text-[color:var(--eclipse-muted)] lowercase">
-        <div>© 2026 ansh dwivedi · built with stubborn optimism.</div>
+        <div>© 2026 ansh dwivedi</div>
         <div className="flex items-center gap-2">
           <span className="size-1.5 rounded-full bg-[var(--eclipse-accent)] animate-pulse-glow" />
           bengaluru, india

@@ -55,26 +55,15 @@ function QuestsPage() {
       <div className="container mx-auto px-6 md:px-10 max-w-6xl">
         {/* Hero */}
         <header className="max-w-2xl">
-          <p className="reveal text-[11px] font-medium tracking-[0.2em] text-[color:var(--eclipse-accent)] uppercase">
-            quest log
-          </p>
-          <h1 className="reveal font-display mt-4 text-5xl md:text-7xl tracking-[-0.03em] lowercase leading-[0.95]">
+          <h1 className="reveal font-display text-5xl md:text-7xl tracking-[-0.03em] lowercase leading-[0.95]">
             quest log
             <span className="text-[var(--eclipse-accent)]">.</span>
           </h1>
           <p className="reveal mt-6 text-base md:text-lg text-[color:var(--eclipse-foreground)]/70 leading-relaxed lowercase">
-            things i did for no practical reason whatsoever.
+            a collection of rabbit holes worth falling into. proof that curiosity is often a
+            better compass than certainty.
           </p>
-          <div className="reveal mt-4 space-y-1 text-[color:var(--eclipse-foreground)]/65 lowercase">
-            <p>some became stories.</p>
-            <p>some became skills.</p>
-            <p>some became mistakes.</p>
-            <p className="text-[color:var(--eclipse-foreground)]/90">all worth it.</p>
-          </div>
-          <p className="reveal mt-8 text-sm text-[color:var(--eclipse-muted)] lowercase">
-            17 quests completed. many more pending.
-          </p>
-          <div className="reveal mt-6">
+          <div className="reveal mt-8">
             <button
               onClick={surpriseMe}
               className="group inline-flex items-center gap-2 rounded-full border border-[color:var(--eclipse-foreground)]/15 bg-[color:var(--eclipse-foreground)]/[0.02] px-4 py-2 text-xs font-medium text-[color:var(--eclipse-foreground)]/80 hover:text-[var(--eclipse-foreground)] hover:border-[color:var(--eclipse-accent)]/50 hover:bg-[color:var(--eclipse-accent)]/[0.06] transition-all lowercase"
@@ -123,38 +112,31 @@ function QuestCard({
     <button
       type="button"
       onClick={onOpen}
-      style={{ transitionDelay: `${index * 40}ms` }}
-      className="reveal group relative flex flex-col text-left rounded-2xl border border-[color:var(--eclipse-foreground)]/10 bg-card overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--eclipse-foreground)]/20 hover:shadow-[0_20px_40px_-20px_color-mix(in_oklab,var(--eclipse-foreground)_25%,transparent)] cursor-pointer"
+      style={{
+        transitionDelay: `${index * 40}ms`,
+        borderColor: "color-mix(in oklab, var(--eclipse-foreground) 10%, transparent)",
+      }}
+      className="reveal group relative flex flex-col text-left rounded-3xl border bg-[var(--eclipse-surface)] overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-eclipse)] cursor-pointer"
     >
-      <div
-        className="aspect-[4/3] w-full overflow-hidden"
-        style={{
-          background: quest.coverImage
-            ? `url(${quest.coverImage}) center/cover no-repeat`
-            : `linear-gradient(135deg, color-mix(in oklab, var(--eclipse-accent) 12%, var(--card)), color-mix(in oklab, var(--eclipse-foreground) 6%, var(--card)))`,
-        }}
-      >
-        {!quest.coverImage && (
-          <div className="h-full w-full flex items-end p-5">
-            <span className="font-display text-5xl text-[color:var(--eclipse-foreground)]/15 lowercase">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-          </div>
-        )}
-      </div>
-      <div className="p-5 md:p-6 flex flex-col gap-3 flex-1">
-        <p className="text-[11px] tracking-wider text-[color:var(--eclipse-muted)] lowercase">
+      {quest.coverImage && (
+        <div
+          className="aspect-[16/10] w-full"
+          style={{ background: `url(${quest.coverImage}) center/cover no-repeat` }}
+        />
+      )}
+      <div className="p-7 md:p-8 flex flex-col flex-1">
+        <span className="text-[11px] font-medium tracking-[0.2em] text-[color:var(--eclipse-accent)] uppercase">
           {formatDate(quest.date)}
-        </p>
-        <h3 className="font-display text-xl md:text-2xl tracking-tight leading-snug text-[var(--eclipse-foreground)] lowercase">
+        </span>
+        <h3 className="font-display mt-3 text-2xl md:text-3xl tracking-[-0.02em] leading-[1.1] text-[var(--eclipse-foreground)] lowercase">
           {quest.title.toLowerCase()}
         </h3>
-        <p className="text-sm text-[color:var(--eclipse-foreground)]/65 leading-relaxed lowercase">
+        <p className="mt-3 text-sm text-[color:var(--eclipse-foreground)]/65 leading-relaxed lowercase">
           {quest.hook.toLowerCase()}
         </p>
-        <div className="mt-auto pt-3 flex items-center gap-1.5 text-xs font-medium text-[color:var(--eclipse-accent)] opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 lowercase">
-          open quest <ArrowUpRight className="size-3.5" />
-        </div>
+        <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--eclipse-foreground)] lowercase opacity-70 group-hover:opacity-100 transition">
+          open quest <ArrowUpRight className="size-3.5 text-[var(--eclipse-accent)]" />
+        </span>
       </div>
     </button>
   );
