@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useReveal } from "@/hooks/use-reveal";
 import { PROJECTS } from "@/data/projects";
-import { ArrowUpRight, Hammer, Sparkles, Wrench } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 export const Route = createFileRoute("/building")({
   head: () => ({
@@ -22,35 +22,13 @@ function BuildingPage() {
       <div className="container mx-auto px-5 md:px-8 max-w-6xl">
         {/* Hero — mirrors homepage highlight reel */}
         <header className="max-w-3xl">
-          <p className="reveal text-xs font-medium tracking-[0.2em] text-[color:var(--eclipse-accent)] uppercase">
-            the workshop
-          </p>
-          <h1 className="reveal font-display mt-3 text-5xl md:text-7xl tracking-[-0.03em] lowercase leading-[0.95]">
+          <h1 className="reveal font-display text-5xl md:text-7xl tracking-[-0.03em] lowercase leading-[0.95]">
             building
             <span className="text-[var(--eclipse-accent)]">.</span>
           </h1>
           <p className="reveal mt-6 text-base md:text-lg text-[color:var(--eclipse-foreground)]/70 leading-relaxed lowercase max-w-xl">
-            a small, deliberate set of things i'm actually building. fewer bets, more care —
-            shipped on nights and weekends.
+            a few attempts at turning "someone should build this" into "i built this."
           </p>
-
-          {/* tiny stat strip — adds context like a product page */}
-          <dl className="reveal mt-8 grid grid-cols-3 gap-3 md:gap-4 max-w-md">
-            {[
-              { k: "shipped", v: String(PROJECTS.length) },
-              { k: "in progress", v: String(PROJECTS.filter((p) => p.status === "in progress").length) },
-              { k: "exploring", v: String(PROJECTS.filter((p) => p.status === "exploring").length) },
-            ].map((s) => (
-              <div
-                key={s.k}
-                className="rounded-2xl border bg-[var(--eclipse-surface)] px-4 py-3"
-                style={{ borderColor: "color-mix(in oklab, var(--eclipse-foreground) 10%, transparent)" }}
-              >
-                <dt className="text-[10px] tracking-[0.18em] uppercase text-[color:var(--eclipse-muted)]">{s.k}</dt>
-                <dd className="font-display mt-1 text-2xl md:text-3xl tracking-tight lowercase">{s.v}</dd>
-              </div>
-            ))}
-          </dl>
         </header>
 
         {/* Featured products — alternating zig-zag, apple-style bands */}
@@ -59,49 +37,6 @@ function BuildingPage() {
             <ProjectBand key={p.slug} project={p} index={i} />
           ))}
         </div>
-
-        {/* Workshop principles — small highlight reel of how i build */}
-        <section className="mt-24 md:mt-32">
-          <p className="reveal text-xs font-medium tracking-[0.2em] text-[color:var(--eclipse-accent)] uppercase">
-            workshop notes
-          </p>
-          <h2 className="reveal font-display mt-3 text-3xl md:text-5xl tracking-[-0.02em] lowercase">
-            how this stuff actually gets made.
-          </h2>
-          <div className="mt-10 grid gap-4 md:gap-5 md:grid-cols-3">
-            {[
-              {
-                icon: <Sparkles className="size-4" />,
-                title: "scratch your own itch",
-                body: "if i wouldn't use it on a tuesday afternoon, it doesn't get built.",
-              },
-              {
-                icon: <Hammer className="size-4" />,
-                title: "ship the ugly v1",
-                body: "taste shows up later. momentum shows up first or not at all.",
-              },
-              {
-                icon: <Wrench className="size-4" />,
-                title: "keep the surface small",
-                body: "one screen, one promise. expand only when the promise holds.",
-              },
-            ].map((n) => (
-              <div
-                key={n.title}
-                className="reveal rounded-3xl border bg-[var(--eclipse-surface)] p-6 md:p-7"
-                style={{ borderColor: "color-mix(in oklab, var(--eclipse-foreground) 10%, transparent)" }}
-              >
-                <span className="inline-flex items-center justify-center size-9 rounded-full bg-[color:var(--eclipse-accent)]/10 text-[var(--eclipse-accent)]">
-                  {n.icon}
-                </span>
-                <h3 className="font-display mt-4 text-xl md:text-2xl tracking-tight lowercase">{n.title}</h3>
-                <p className="mt-2 text-sm text-[color:var(--eclipse-foreground)]/65 leading-relaxed lowercase">
-                  {n.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
 
         {/* CTA card */}
         <Link
@@ -135,8 +70,8 @@ function ProjectBand({
   project: import("@/data/projects").Project;
   index: number;
 }) {
-  // alternating zig-zag: even index = visual left, odd index = visual right
-  const flipped = index % 2 === 1;
+  // consistent layout for every project: visual left, content right
+  const flipped = false;
   return (
     <Link
       to="/building/$slug"
@@ -189,12 +124,6 @@ function ProjectBand({
             <span className="text-[11px] font-medium tracking-[0.2em] text-[color:var(--eclipse-accent)] uppercase">
               project 0{index + 1}
             </span>
-            {project.status && (
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-[color:var(--eclipse-foreground)]/15 px-2.5 py-0.5 text-[11px] font-medium text-[color:var(--eclipse-muted)] lowercase">
-                <span className="size-1.5 rounded-full bg-[var(--eclipse-accent)] animate-pulse-glow" />
-                {project.status}
-              </span>
-            )}
           </div>
           <h2 className="font-display mt-3 text-4xl md:text-6xl tracking-[-0.025em] lowercase leading-[0.95]">
             {project.name}
