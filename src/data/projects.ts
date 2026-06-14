@@ -8,14 +8,22 @@ export type Project = {
   logo?: string;
   logoImage?: string;
   status?: string;
+  // Punchy one-liner.
   tagline: string;
-  // Short description used on the listing card.
+  // ~2 line description used on the listing card.
   description: string;
-  // Detailed content for the project page.
-  overview: string[];
+  // When true, the card renders a "coming soon" template and is not clickable.
+  comingSoon?: boolean;
+  // External link for the "use now" CTA. Omitted = CTA hidden.
+  useNowUrl?: string;
+  // Optional lead-in shown above the sections on the detail page.
+  overview?: string[];
+  // The four narrative sections (each is a list of paragraphs).
+  problemSpace?: string[];
+  solutionSpace?: string[];
+  insights?: string[];
+  build?: string[];
   images?: ProjectImage[];
-  architecture?: string[];
-  stack?: string[];
   links?: { label: string; href: string }[];
 };
 
@@ -25,39 +33,39 @@ export const PROJECTS: Project[] = [
     slug: "project-one",
     name: "project one",
     logo: "🛠️",
-    status: "in progress",
+    status: "live",
     tagline: "a short, punchy line about what it does.",
     description:
-      "placeholder for the first thing i'm building. swap in the product name, a logo, and a one-line pitch.",
+      "placeholder for the first thing i'm building. two lines that say what it is and who it's for, then get out of the way.",
+    useNowUrl: "https://example.com",
     overview: [
-      "placeholder overview. open with what the product is and the problem it solves in plain language.",
-      "follow with why you're building it, who it's for, and what makes the approach different.",
+      "placeholder overview. one or two lines that frame the whole thing before the reader dives into the sections.",
+    ],
+    problemSpace: [
+      "placeholder for the problem space. what's broken, who feels it, and why the existing options fall short.",
+      "add the context and constraints that made this worth building in the first place.",
+    ],
+    solutionSpace: [
+      "placeholder for the solution space. the core idea, the bet, and the shape of the thing you built.",
+      "call out the key product decisions and what you deliberately chose not to do.",
+    ],
+    insights: [
+      "placeholder for insights. what surprised you, what users actually did, and what you'd tell your past self.",
+    ],
+    build: [
+      "placeholder for the build. how it's put together, the interesting technical calls, and the trade-offs behind them.",
     ],
     images: [],
-    architecture: [
-      "high-level architecture goes here: the main components and how they talk to each other.",
-      "call out the interesting decisions and the trade-offs behind them.",
-    ],
-    stack: ["react", "typescript", "tanstack", "your-backend-here"],
     links: [],
   },
   {
     slug: "project-two",
     name: "project two",
     logo: "⚡",
-    status: "exploring",
+    status: "coming soon",
+    comingSoon: true,
     tagline: "another short line describing the second build.",
     description:
-      "placeholder for the second project. replace with the real name, imagery, and a crisp summary.",
-    overview: [
-      "placeholder overview for the second project. describe the idea and the itch that started it.",
-      "add context on progress so far and where it's headed next.",
-    ],
-    images: [],
-    architecture: [
-      "sketch the architecture: data flow, services, and the pieces worth explaining.",
-    ],
-    stack: ["react", "typescript", "your-stack-here"],
-    links: [],
+      "placeholder for the second project. swap in the real name, imagery, and a crisp two-line summary when it's ready.",
   },
 ];
